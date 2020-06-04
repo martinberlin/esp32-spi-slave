@@ -25,5 +25,5 @@ https://github.com/ZinggJM/GxEPD/blob/master/src/GxIO/GxIO_SPI/GxIO_SPI.cpp#L114
 
 ### Credits
 
-https://github.com/martinberlin/esp32-spi-slave/tree/master/lib/esp32-slave-spi iPAS
-https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/spi_slave.html
+https://github.com/iPAS/esp32-slave-spi iPAS
+[Espressif ESP32 documentation about SPI](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/spi_slave.html)

@@ -22,34 +22,42 @@ typedef SimpleArray<uint8_t, int> array_t;
 
 array_t slave_msg(SPI_DEFAULT_MAX_BUFFER_SIZE);
 
+int callback_after_slave_tx_finish() {
+    // Not needed for now
+    // Serial.println(slave[0]);
+    return 0;
+}
+
 void setup() {
     Serial.begin(115200);
     Serial.println("SPI SNIFFER");
     pinMode(SS, INPUT_PULLUP);
     pinMode(DC, INPUT_PULLUP);
     // Setup Slave-SPI
+    // Note we expect only 1 byte transmission from GxEPD (Looking at how the class is made)
+    slave.begin(SO, SI, SCLK, SS, 1); 
+
+    // Comments from iPAS: In this one I stripped the callback:
     // slave.begin(SO, SI, SCLK, SS, 8, callback_after_slave_tx_finish);  // seems to work with groups of 4 bytes
     // slave.begin(SO, SI, SCLK, SS, 4, callback_after_slave_tx_finish);
-    slave.begin(SO, SI, SCLK, SS, 1);
     // slave.begin(SO, SI, SCLK, SS, 1, callback_after_slave_tx_finish);  // at least 2 word in an SPI frame
 }
-
-/******************************************************************************
- * Loop 
- */
 
 void loop() {
     uint8_t ilen = slave.getInputStream()->length();
     uint8_t rSS = digitalRead(SS);
     uint8_t rDC = digitalRead(DC);
-    if (ilen && rSS == 0) {  // Slave SPI has got CMD
+
+    // Slave SPI got communication when SS is LOW
+    if (ilen && rSS == LOW) {  
         
         uint8_t *buff = new uint8_t[ilen];
         slave.readToBytes(buff,ilen);
 
+        // Only SS low signalizes data in GxEPD
         String type = "D";
-        if (rDC == 1) {
-            type = "C";
+        if (rDC == LOW) {    // Is a command when DC is low
+            type = "\nC";
         }
         for (int i=0;i<=ilen;++i) {
         Serial.printf("%s %x ", type, buff[i]);
