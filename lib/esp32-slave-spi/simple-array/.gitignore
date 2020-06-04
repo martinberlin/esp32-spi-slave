@@ -1,0 +1,6 @@
+/Debug/
+
+# Eclipse
+.cproject
+.project
+.settings/
