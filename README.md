@@ -9,7 +9,7 @@ One epaper so far is working but others are not. Even though I'm sending exactly
 Why not?
 
 Because there is something different. Or because there is a missing command that without it the epaper wont boot up...
-Thats why I though ok lets try to fimd a library to flash one ESP32 and let it work as a SPI slave. Then you can hear what commands a working example sends and compare with your non working program to discover what are you doing wrong.
+Thats why I though ok lets try to find a library to flash one ESP32 and let it work as a SPI slave. Then you can hear what commands a working example sends and compare with your non working program to discover what are you doing wrong.
 
 ## The wiring
 
